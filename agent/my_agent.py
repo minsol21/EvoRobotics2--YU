@@ -2,6 +2,7 @@ from swarmy.agent import Agent
 import random
 import pygame
 
+
 class MyAgent(Agent):
     def __init__(self,environment,controller, sensor, config):
         super().__init__(environment,controller, sensor, config)
@@ -38,6 +39,15 @@ class MyAgent(Agent):
         """ your implementation here """
 
         pass
+
+    def draw_trajectory(self):
+        current_time = pygame.time.get_ticks()
+        # Filter out points that are older than 3000 milliseconds (3 seconds)
+        self.trajectory = [point for point in self.trajectory if current_time - point[2] <= 3000]
+        
+        if len(self.trajectory) > 1:  # Ensure there are at least two points to draw a line
+            positions = [(pos[0], pos[1]) for pos in self.trajectory]
+            pygame.draw.lines(self.environment.displaySurface, (255, 0, 0), False, positions, 2)
 
 
 

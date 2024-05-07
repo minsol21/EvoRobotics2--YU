@@ -72,6 +72,8 @@ class Environment():
         elif(self.config['rendering'] == 0):
             self.displaySurface = pygame.display.set_mode((self.width, self.height), pygame.NOFRAME)                # black screen where capture images is possible
 
+        
+
 
     @abstractmethod
     def add_static_rectangle_object(self):
@@ -172,6 +174,8 @@ class Environment():
         for x in self.dynamicRectList:
             pygame.draw.rect(self.displaySurface, x[0], x[1], x[2])
 
+        for x in self.agentlist:
+            x.draw_trajectory()
 
         # reset dynamic buffers
         self.resetDynamicBuffers()                  

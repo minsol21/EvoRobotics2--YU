@@ -61,10 +61,13 @@ class Proximity_Controller(Actuation):
         # Update the heading
         new_heading = (gamma + turn_angle) % 360
 
-        # Update the position
+        # Update the position 
         new_x = (x + dx) % self.config['world_width']
         new_y = (y + dy) % self.config['world_height']
         self.agent.set_position(new_x, new_y, new_heading)
+        current_time = pygame.time.get_ticks()  # Get the current time in milliseconds
+        self.agent.trajectory.append((new_x, new_y, current_time))
+
 
     def torus(self):
         """
